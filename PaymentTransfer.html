@@ -1,0 +1,109 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Payment Transfer</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="bootstrap/css/bootstrap.css" rel="stylesheet" />
+</head>
+<body>
+    <script src="scripts/jquery-1.8.3.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-lg-9 col-sm-9 col-xs-9 col-md-9">
+                <img src="Images/Logo.png" height="82" width="150" />
+            </div>
+            <div class="col-lg-3 col-sm-3 col-xs-3 col-md-3">
+                <img src="Images/onlinebanking.jpg" height="62" width="82" /><br />
+                <label style="color:darkblue">Welcome: <label id="uname" /></label>
+            </div>
+
+        </div>
+        <div class="row">
+            <nav class="navbar navbar-default">
+
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="Home.html">MyAccounts</a></li>
+                    <li><a href="PaymentTransfer.html">Payment/Transfer</a></li>
+                    <li><a href="#">Credit Cards</a></li>
+                    <li><a href="#">E-Tax</a></li>
+                    <li><a href="#">Profile</a></li>
+                    <li><a href="#">Bill Payments</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+
+                    <li><a href="Index.html"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <form action="FinalTransfer.html">
+            <div class="row">
+
+                <div class="panel panel-primary" style="padding: 1px; max-width: 800px; margin-left: auto; margin-right: auto;">
+                    <div class="panel-heading">Transfer Payment</div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <label class="col-lg-4 col-sm-4 col-xs-4 col-md-4">Transfer From* </label>
+                            <select class="col-lg-6 col-sm-6 col-xs-6 col-md-6" required>
+                                <option selected>000001234596</option>
+                                <option>000001234512</option>
+                            </select>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <label class="col-lg-4 col-sm-4 col-xs-4 col-md-4">Transfer To* </label>
+                            <select class="col-lg-6 col-sm-6 col-xs-6 col-md-6">
+                                <option>Select</option>
+                                <option>Karthik--0172892134</option>
+                                <option>Sohom--0198734511</option>
+                            </select>
+                        </div><br />
+                        <div class="row">
+                            <label class="col-lg-4 col-sm-4 col-xs-4 col-md-4">Date* </label>
+                            <input type="date" id="tdate" class="col-lg-6 col-sm-6 col-xs-6 col-md-6" required>
+                        </div><br />
+
+                        <div class="row">
+                            <label class="col-lg-4 col-sm-4 col-xs-4 col-md-4">Amount* </label>
+                            <input type="number" id="amount" class="col-lg-6 col-sm-6 col-xs-6 col-md-6" required>
+                        </div><br />
+
+                        <div class="row">
+                            <label class="col-lg-4 col-sm-4 col-xs-4 col-md-4">Remarks </label>
+                            <input type="text" id="amount" class="col-lg-6 col-sm-6 col-xs-6 col-md-6">
+                        </div><br />
+
+                        <div class="row">
+                            <label class="col-lg-4 col-sm-4 col-xs-4 col-md-4">Payment Type* </label>
+                            <select class="col-lg-6 col-sm-6 col-xs-6 col-md-6">
+                                <option>One Time</option>
+                                <option>Recurring</option>
+                            </select>
+                        </div><br />
+                        <div class="row">
+                            <button type="submit" id="login" class="btn btn-primary" style="padding:5px;margin-left:340px">Next</button>
+                            <button type="reset" id="reset" class="btn btn-warning" style="padding:5px;margin-left:20px">Reset</button>
+                        </div><br />
+
+                    </div>
+                </div>
+
+
+
+            </div>
+        </form>
+    </div>
+    
+
+    <script>
+        (function () {
+            $("#uname").html(sessionStorage.getItem("username"));
+        })();
+    </script>
+</body>
+</html>

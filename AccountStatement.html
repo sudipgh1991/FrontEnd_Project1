@@ -1,0 +1,304 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Statement</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="bootstrap/css/bootstrap.css" rel="stylesheet" />
+</head>
+<body>
+    <script src="scripts/jquery-1.8.3.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <div class="container">
+        <div class="row">
+
+            <div class="col-lg-9 col-sm-9 col-xs-9 col-md-9">
+                <img src="Images/Logo.png" height="82" width="150" />
+            </div>
+            <div class="col-lg-3 col-sm-3 col-xs-3 col-md-3">
+                <img src="Images/onlinebanking.jpg" height="62" width="82" /><br />
+                <label style="color:darkblue">Welcome: <label id="uname" /></label>
+            </div>
+
+        </div>
+        <div class="row">
+            <nav class="navbar navbar-default">
+
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="Home.html">MyAccounts</a></li>
+                    <li><a href="PaymentTransfer.html">Payment/Transfer</a></li>
+                    <li><a href="#">Credit Cards</a></li>
+                    <li><a href="#">E-Tax</a></li>
+                    <li><a href="#">Profile</a></li>
+                    <li><a href="#">Bill Payments</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+
+                    <li><a href="Index.html"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <div class="row">
+
+            <div class="panel panel-primary col-lg-3 col-sm-3 col-xs-3 col-md-3" style="padding:1px">
+                <div class="panel-heading">View</div>
+                <div class="panel-body">
+                    <ul>
+                        <li class="active"><a href="Home.html">MyAccounts</a></li>
+                        <li><a href="AccountStatement.html">Account Statements</a></li>
+                        <li><a href="ChangePassword.html">Change Password</a></li>
+                        <li><a href="#">Rewartz Points</a></li>
+                        <li><a href="#">Offers</a></li>
+                    </ul>
+
+                </div>
+            </div>
+
+            <div class="col-lg-1 col-sm-1 col-xs-1 col-md-1"></div>
+
+            <div class="panel panel-primary col-lg-8 col-sm-8 col-xs-8 col-md-8" style="padding:1px">
+                <div class="panel-heading">Account Statement</div>
+                <div class="panel-body">
+                    <label>Select an account</label>
+                    <table class="table table-condensed" >
+                        <thead>
+                            <tr>
+                                <th>Account#/Nick Name</th>
+                                <th>Account Type</th>
+                                <th>Branch</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="radio">
+                                        <label><input type="radio" name="optradio">000001234596</label>
+                                    </div>
+                                </td>
+                                <td>
+                                    Savings
+                                </td>
+
+                                <td>
+                                    Sakchi
+                                </td>
+                            </tr>
+
+
+                            <tr>
+                                <td>
+                                    <div class="radio">
+                                        <label><input type="radio" name="optradio">000001234512</label>
+                                    </div>
+                                </td>
+                                <td>
+                                    Savings
+                                </td>
+
+                                <td>
+                                    Bistupur
+                                </td>
+                            </tr>
+
+
+                            <tr>
+                                <td>
+                                    <div class="radio">
+                                        <label><input type="radio" name="optradio">000002345567</label>
+                                    </div>
+                                </td>
+                                <td>
+                                    Deposit
+                                </td>
+
+                                <td>
+                                    Sakchi
+                                </td>
+                            </tr>
+
+
+                            <tr>
+                                <td>
+                                    <div class="radio">
+                                        <label><input type="radio" name="optradio">00000156129</label>
+                                    </div>
+                                </td>
+                                <td>
+                                    Deposit
+                                </td>
+
+                                <td>
+                                    Bistupur
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+                    <label>Select options for the statement period </label>
+                    <div class="row" style="margin-left:auto;margin-right:auto">
+                        <label class="radio-inline" ><input type="radio" name="optradio" id="byDate">By Date</label>
+                        <label class="radio-inline"><input type="radio" name="optradio" id="byMonth">By Month</label>
+                        <label class="radio-inline"><input type="radio" name="optradio" id="by6Month">Last 6 Months</label>
+                        <label class="radio-inline"><input type="radio" name="optradio" id="byfinyear">Financial Year</label>
+                    </div><br/>
+
+                    <div class="row" style="margin-left:auto;margin-right:auto">
+                        <label>Start Date </label>
+                        <input type="date" id="sdate">
+                        
+                        <label style="padding-left:20px">Year </label>
+                        <select id="year" disabled style="background-color:grey">
+                            <option>2012</option>
+                            <option>2013</option>
+                            <option>2014</option>
+                            <option>2015</option>
+                            <option selected>2016</option>
+                        </select>
+
+                        <label style ="padding-left:20px"></label>
+                        <select disabled style="background-color:grey" id="yearrange">
+                            <option>2013-2014</option>
+                            <option>2014-2015</option>
+                            <option selected>2015-2016</option>
+                        </select>
+
+                    </div><br />
+                    <div class="row" style="margin-left:auto;margin-right:auto">
+                        <label>End Date</label>
+                        <input type="date" id="edate" style="margin-left:5px">
+
+                        <label style="padding-left:20px">Month </label>
+                        <select id="month" disabled style="background-color:grey">
+                            <option>January</option>
+                            <option>February</option>
+                            <option>March</option>
+                            <option>April</option>
+                            <option>May</option>
+                            <option>June</option>
+                            <option selected>July</option>
+                            <option>August</option>
+                            <option>September</option>
+                            <option>October</option>
+                            <option>November</option>
+                            <option>December</option>
+                        </select>
+                    </div><br/>
+
+                    <label>Select appropriate options to view, print or download the statement</label>
+                    <div class ="row" style="margin-left:auto;margin-right:auto">
+
+                        <label class="radio-inline"><input type="radio" name="optradio1" id="default">View</label>
+                        <label class="radio-inline"><input type="radio" name="optradio1">Download in MS Excel format</label>
+                        <label class="radio-inline"><input type="radio" name="optradio1">Download in PDF format</label>
+                        
+                    </div><br/>
+                    <button class="btn btn-primary" style="margin-left:auto;margin-right:auto" id="go">Go</button>
+
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+    <style>
+        .table-condensed > thead > tr > th, .table-condensed > tbody > tr > th, .table-condensed > tfoot > tr > th, .table-condensed > thead > tr > td, .table-condensed > tbody > tr > td, .table-condensed > tfoot > tr > td {
+            padding: 0.5px;
+        }
+    </style>
+
+
+    <script>
+        //use of IIFE....could have done by simply checked property in the input tag
+        (function () {
+
+            $("#byDate").attr('checked', true);
+            $("#default").attr('checked', true);
+            $("#uname").html(sessionStorage.getItem("username"));
+        })();
+
+        $(document).ready(function () {
+
+            $("#byMonth").click(
+                function()
+                {
+                    $("#sdate").prop("disabled", true); $("#sdate").css("background-color", 'grey');
+                    $("#edate").prop("disabled", true); $("#edate").css("background-color", 'grey');
+                    $("#yearrange").prop("disabled", true); $("#yearrange").css("background-color", 'grey');
+                    $("#year").prop("disabled", false); $("#year").css("background-color", 'transparent');
+                    $("#month").prop("disabled", false); $("#month").css("background-color", 'transparent');
+
+                }
+                );
+
+
+            $("#byDate").click(
+                function () {
+                    $("#sdate").prop("disabled", false); $("#sdate").css("background-color", 'transparent');
+                    $("#edate").prop("disabled", false); $("#edate").css("background-color", 'transparent');
+                    $("#yearrange").prop("disabled", true); $("#yearrange").css("background-color", 'grey');
+                    $("#year").prop("disabled", true); $("#year").css("background-color", 'grey');
+                    $("#month").prop("disabled", true); $("#month").css("background-color", 'grey');
+
+                }
+                );
+
+            $("#by6Month").click(
+               function () {
+                   $("#sdate").prop("disabled", true); $("#sdate").css("background-color", 'grey');
+                   $("#edate").prop("disabled", true); $("#edate").css("background-color", 'grey');
+                   $("#yearrange").prop("disabled", true); $("#yearrange").css("background-color", 'grey');
+                   $("#year").prop("disabled", true); $("#year").css("background-color", 'grey');
+                   $("#month").prop("disabled", true); $("#month").css("background-color", 'grey');
+
+               }
+               );
+
+            $("#byfinyear").click(
+               function () {
+                   $("#sdate").prop("disabled", true); $("#sdate").css("background-color", 'grey');
+                   $("#edate").prop("disabled", true); $("#edate").css("background-color", 'grey');
+                   $("#yearrange").prop("disabled", false); $("#yearrange").css("background-color", 'transparent');
+                   $("#year").prop("disabled", true); $("#year").css("background-color", 'grey');
+                   $("#month").prop("disabled", true); $("#month").css("background-color", 'grey');
+
+               }
+               );
+
+            $("#go").click(
+
+                function () {
+                    var sdate = new Date( $("#sdate").val());
+                    var edate = new Date($("#edate").val());
+
+                    if ($("#byDate").attr('checked'))
+                    {
+                        if (!(isNaN(sdate) || isNaN(edate))) {
+                            var monthsbetween = edate.getMonth() - sdate.getMonth();
+                            if (monthsbetween == 1 || monthsbetween == -11 || monthsbetween == 0)
+                                alert("Statement will be downloaded/visible shortly.Please wait....");
+                            else
+                                alert("Statement of maximum one month can be downloaded");
+                        }
+                        else
+                            alert("Please enter the dates");
+                    
+                    }
+                    else
+                    {
+                        alert("Statement will be downloaded/visible shortly.Please wait....");
+                    }
+
+                }
+                );
+
+        });
+        
+    </script>
+</body>
+</html>

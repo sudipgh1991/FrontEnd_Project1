@@ -1,0 +1,170 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Home</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="bootstrap/css/bootstrap.css" rel="stylesheet" />
+</head>
+<body>
+    <script src="scripts/jquery-1.8.3.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-lg-9 col-sm-9 col-xs-9 col-md-9" >
+                <img src="Images/Logo.png" height="82" width="150" />
+            </div>
+            <div class="col-lg-3 col-sm-3 col-xs-3 col-md-3">
+                <img src="Images/onlinebanking.jpg" height="62" width="82" /><br/>
+                <label style="color:darkblue">Welcome: <label id="uname"/></label>
+            </div>
+
+        </div>
+        <div class="row">
+            <nav class="navbar navbar-default">
+
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="Home.html">MyAccounts</a></li>
+                    <li><a href="PaymentTransfer.html">Payment/Transfer</a></li>
+                    <li><a href="#">Credit Cards</a></li>
+                    <li><a href="#">E-Tax</a></li>
+                    <li><a href="#">Profile</a></li>
+                    <li><a href="#">Bill Payments</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+
+                    <li><a href="Index.html"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+
+
+    
+        <div class="row">
+            <div class="panel panel-primary col-lg-3 col-sm-3 col-xs-3 col-md-3" style="padding:1px">
+                <div class="panel-heading">View</div>
+                <div class="panel-body">
+                    <ul>
+                        <li class="active"><a href="Home.html">MyAccounts</a></li>
+                        <li><a href="AccountStatement.html">Account Statements</a></li>
+                        <li><a href="ChangePassword.html">Change Password</a></li>
+                        <li><a href="#">Rewartz Points</a></li>
+                        <li><a href="#">Offers</a></li>
+                    </ul>
+
+                </div>
+            </div>
+
+            <div class="col-lg-1"></div>
+
+            <div class="panel panel-primary col-lg-8 col-sm-8 col-xs-8 col-md-8" style="padding:1px">
+                <div class="panel-heading">Transaction Accounts</div>
+                <div class="panel-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Account#/Nick Name</th>
+                                <th>Branch</th>
+                                <th>Available Balance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>000001234596</td>
+                                <td>Sakchi</td>
+                                <td><a href="#" id="txn1">Click here for balance</a><label id="t1" hidden></label></td>
+                            </tr>
+                            <tr>
+                                <td>000001234512</td>
+                                <td>Bistupur</td>
+                                <td><a href="#" id="txn2">Click here for balance</a><label id="t2" hidden></label></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+
+
+                </div>
+
+                <div class="panel-heading">Deposits Accounts</div>
+                <div class="panel-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Account#/Nick Name</th>
+                                <th>Branch</th>
+                                <th>Available Balance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>000002345567</td>
+                                <td>Sakchi</td>
+                                <td><a href="#" id="dep1">Click here for balance</a><label id="d1" hidden></label></td>
+                            </tr>
+                            <tr>
+                                <td>00000156129</td>
+                                <td>Bistupur</td>
+                                <td><a href="#" id="dep2">Click here for balance</a><label id="d2" hidden></label></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+
+
+                </div>
+            </div>
+
+
+
+
+
+        </div>
+
+       
+
+
+    </div>
+
+    <script>
+
+        $(document).ready(
+
+            function()
+            {
+                $("#uname").html(sessionStorage.getItem("username"));
+
+                $("#txn1").click(function () {
+                    $("#t1").html("52,323");
+                    $("#t1").show();
+                    $("#txn1").hide();
+
+                });
+                $("#txn2").click(function () {
+                    $("#t2").html("82,563");
+                    $("#t2").show();
+                    $("#txn2").hide();
+
+                });
+                $("#dep1").click(function () {
+                    $("#d1").html("12,987");
+                    $("#d1").show();
+                    $("#dep1").hide();
+
+                });
+                $("#dep2").click(function () {
+                    $("#d2").html("25,987");
+                    $("#d2").show();
+                    $("#dep2").hide();
+
+                });
+                
+            }
+
+            );
+        
+    </script>
+</body>
+</html>
