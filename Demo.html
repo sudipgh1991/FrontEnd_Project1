@@ -1,0 +1,574 @@
+﻿<!DOCTYPE html>
+<html ng-app="MyModule">
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+   
+    <script src="scripts/angular.js"></script>
+    <script src="scripts/angular-filter.js"></script>
+    
+    <link href="bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <script src="scripts/jquery-1.8.3.min.js"></script>
+    <script src="bootstrap/js/bootstrap.js"></script>
+
+</head>
+<body>
+    <script>
+        //create an angularjs module
+        var mymodule = angular.module("MyModule",[]);
+
+        //create a custom filter
+        mymodule.filter("MyCustomFilter", function () {
+            return function (input, discount) {
+                var discountedprice = (input / 100) * discount;
+                return "Original price: Rs. " + input + ". With Discount: Rs. " + (input - discountedprice);
+            };
+        });
+
+        //create custom directive
+        mymodule.directive("myCustomDirective", function () {
+
+            //must return DDO(Directive Definition Object) which specifies the behaviour of the directive
+            //E=Element or A=attribute
+            return {
+                restrict: 'E',
+                //template: '<h2>THis is from MyCustomDirective</h2>'
+                templateUrl: 'mytemplate.html',
+               
+            };
+
+        });
+        
+        mymodule.directive('userinfo', function () {
+
+            return {
+
+                restrict: 'E',
+                templateUrl: 'userinfo.html',
+                controller: function ($scope) {
+                    $scope.ShowPassword = true;
+                    $scope.ButtonText = "Hide Password";
+                    $scope.toggleShow = function () {
+
+                        if ($scope.ShowPassword == true) {
+                            $scope.ButtonText = "Show Password";
+                            $scope.ShowPassword = false;
+                        }
+                        else if ($scope.ShowPassword == false) {
+                            $scope.ButtonText = "Hide Password";
+                            $scope.ShowPassword = true;
+                        }
+
+                    };
+                },
+                //scope:true//use an inherited scope
+                scope:{   //isolated scope
+                    user:"="
+                },
+                transclude:true // this is false by default
+            };
+
+        });
+
+
+
+        //create decorator directive
+
+        mymodule.directive("highlight", function () {
+
+            return {
+
+                restrict: 'A',
+                link: function (scope, element, attributes)
+                {
+                    //console.log("Element is" + element + "and attribute is" + attributes.align);
+                    element.css("backgroundColor", "orange");
+                   // console.log(element.text);
+                   
+                }
+            }
+
+        });
+
+
+        //TODO:6th Aug
+
+        //1. Create a directive which reverse the text of an HTML element
+        //2. Create a custom directive (component directive) named datetime. 
+        //this directive must display the current date and time inside a <div> tag
+        //Example: <datetime></datetime>
+
+
+        mymodule.directive("reverse", function () {
+            return{
+            restrict: 'A',
+            link: function (scope, element, attributes)
+            {
+              
+                var orgtext = element.text();
+                var revtext = "";
+                for (var i = orgtext.length; i >= 0; i--)
+                    revtext = revtext + orgtext.charAt(i);
+                console.log(revtext);
+                   
+            }
+            }
+        });
+
+        mymodule.directive("datetime", function () {
+
+            return {
+
+                restrict: 'E',
+                template: '<div ng-controller="date"> <input type="text" ng-model="dateTime"> </div>'
+            }
+        });
+
+
+        mymodule.controller("date", function ($scope) {
+
+            $scope.dateTime = new Date();
+            console.log($scope.dateTime);
+
+        });
+
+        //mymodule.config(function ()
+        //{
+        //    alert("MyModule has been loaded");
+        //});
+
+        //create a controller
+        mymodule.controller("MyController", function ($scope) {
+            $scope.Message = "Hello from AngularJS";
+
+            $scope.GetMessageFunction = GetMessage;
+
+            function GetMessage() {
+                return $scope.Message;
+            }
+        });
+
+        mymodule.controller("CalculatorController", function ($scope) {
+            $scope.Operand1 = 0.00;
+            $scope.Operand2 = 0.00;
+            $scope.Operator = '';
+            $scope.Result = 0.00;
+
+            $scope.Calculate = function () {
+                if ($scope.Operator == '+') {
+                    $scope.Result = parseFloat($scope.Operand1) + parseFloat($scope.Operand2);
+                }
+                else if ($scope.Operator == '-') {
+                    $scope.Result = parseFloat($scope.Operand1) - parseFloat($scope.Operand2);
+                }
+                else if ($scope.Operator == '*') {
+                    $scope.Result = parseFloat($scope.Operand1) * parseFloat($scope.Operand2);
+                }
+                else if ($scope.Operator == '/') {
+                    $scope.Result = parseFloat($scope.Operand1) / parseFloat($scope.Operand2);
+                }
+            };
+
+            $scope.ShowResult = function () {
+                alert("Result is: " + $scope.Result);
+            };
+        });
+
+        mymodule.controller("NamesController", function ($scope) {
+            $scope.Names = ['ABC', 'XYZ', 'LMN', 'PQR'];
+        });
+
+        mymodule.controller("CountriesCitiesController", function ($scope) {
+            $scope.Countries = ['India', 'Australia', 'England'];
+            $scope.Cities = [];
+
+            $scope.PopulateCities = function () {
+                $scope.Cities = [];
+                console.log($scope.selectedcountry);
+                if ($scope.selectedcountry.trim() == 'India') {
+                    $scope.Cities.push('Mumbai');
+                    $scope.Cities.push('Chennai');
+                    $scope.Cities.push('Bangalore');
+                }
+                else if ($scope.selectedcountry.trim() == 'Australia') {
+                    $scope.Cities.push('Perth');
+                    $scope.Cities.push('Sydney');
+                    $scope.Cities.push('Melbourne');
+                }
+                else if ($scope.selectedcountry.trim() == 'England') {
+                    $scope.Cities.push('London');
+                    $scope.Cities.push('Bristol');
+                    $scope.Cities.push('Manchester');
+                }
+            };
+        });
+
+        mymodule.controller("EmpController", function ($scope) {
+            $scope.Employees = [
+                { empid: 1, empname: 'A', age: 30, photo: "emp1.jpg" },
+                { empid: 2, empname: 'B', age: 31, photo: "emp2.jpg" },
+                { empid: 3, empname: 'C', age: 32, photo: "emp3.jpg" },
+                { empid: 4, empname: 'D', age: 22, photo: "emp4.jpg" },
+                { empid: 5, empname: 'E', age: 40, photo: "emp5.jpg" }
+            ];
+            $scope.ShowPhoto = true;
+        });
+
+        mymodule.controller("BooksController", function ($scope) {
+            $scope.Books = [
+                { bookid: 1, bookname: 'Pro AngularJS', Publisher: 'APress', Price: 500.00 },
+                { bookid: 2, bookname: 'ASP.NET Complete Reference', Publisher: 'Tata MacGraw Hill', Price: 900.00 },
+                { bookid: 3, bookname: 'Pro C# 3.0', Publisher: 'APress', Price: 850.00 },
+                { bookid: 4, bookname: 'Angular JS Essentials', Publisher: 'Tata MacGraw Hill', Price: 900.00 },
+                { bookid: 5, bookname: 'Linux Complete Reference', Publisher: 'Tata MacGraw Hill', Price: 550.56 },
+                { bookid: 6, bookname: 'Pro WCF', Publisher: 'APress', Price: 650.00 },
+                { bookid: 7, bookname: 'ASP.NET 5.0 Professional', Publisher: 'WROX', Price: 750.20 },
+                { bookid: 8, bookname: 'ASP.NET MVC 4.0 Professional', Publisher: 'WROX', Price: 920.00 },
+                { bookid: 9, bookname: 'Java 8 Complete Reference', Publisher: 'Tata MacGraw Hill', Price: 540.00 },
+                { bookid: 10, bookname: 'Pro WPF 4.5', Publisher: 'APress', Price: 999.00 }
+            ];
+
+            $scope.PubNames = ['Apress', 'Tata MacGraw Hill', 'WROX'];
+            $scope.CurrentDate = new Date();
+
+            $scope.FilterBy = function (publisher) {
+                $scope.PublisherName = publisher;
+            };
+
+            $scope.OrderBy = function (orderby) {
+                $scope.Order = orderby;
+            };
+
+            $scope.myfilterfunction = function (book) {
+                return book.Price >= $scope.StartPrice && book.Price <= $scope.EndPrice;
+            };
+
+           
+            var array = [];
+            $scope.uniqueFilter = function (book) {
+                console.log(array);
+                if ($.inArray(book.Publisher, array) == -1) {
+                   // console.log(book.Publisher);
+                    array.push(book.Publisher);
+                    return true;
+                }
+                else
+                    return false;
+
+            };
+
+            
+
+        });
+
+
+
+        mymodule.controller("UsersController", function ($scope) {
+            $scope.User1 = {
+                UserName: 'User1',
+                Password: 'user1',
+                Permission: ['read', 'write']
+            };
+            
+            $scope.User2 = {
+            UserName: 'User2',
+            Password: 'user2',
+            Permission:['read','delete']
+
+            };
+
+            $scope.Users =
+            [
+                { id: 1, Username: 'User1', Password: 'user1', Permission: ['read', 'write'] },
+                { id: 2, Username: 'User2', Password: 'user2', Permission: ['read', 'delete'] }
+                
+
+
+            ];
+
+            
+            
+           
+
+        }
+
+            );
+
+
+
+        //create a custom service
+
+        mymodule.service("MyCustomService", function ()
+        {
+            //console.log("SERVICE INSTANCE CREATED");
+            this.LogMessageToConsole = function () {
+                //console.log("This is from MyCustomService");
+            };
+
+        });
+        //create some controllers for the service
+        mymodule.controller("Controller1", function ($scope, MyCustomService) {
+
+            $scope.LogMessage=function()
+            {
+                MyCustomService.LogMessageToConsole();
+            }
+
+        });
+        mymodule.controller("Controller2", function ($scope, MyCustomService) {
+            $scope.LogMessage = function () {
+                MyCustomService.LogMessageToConsole();
+            }
+
+        });
+
+        
+
+        //TODO 6th Aug
+        //Create a service named "MathsService"
+        //Create Add, Substract, Multiply and Dividr methods inside the service
+        //Each method takes 2 argument and returns the result
+        //Create a controller having two properties(Operand1,Operand2) inside its scope
+        //Call methods of the service from the controller
+        //The result of the calculations will be returned from the service and stored inside the controller.
+        //Controller will then padd on the result to the view
+
+
+        mymodule.service("MathsService", function () {
+
+            this.Add = function (Operand1, Operand2) {
+                return Operand1 + Operand2;
+            };
+            this.Sub = function (Operand1, Operand2) {
+                return Operand1 - Operand2;
+            };
+            this.Mul = function (Operand1, Operand2) {
+                return Operand1 * Operand2;
+            };
+            this.Div = function (Operand1, Operand2) {
+                return Operand1 / Operand2;
+            };
+        });
+
+
+        mymodule.controller("Calculate", function ($scope, MathsService) {
+            
+            $scope.Calculation = function (arg) {
+                if (arg == "add")
+                    $scope.result = MathsService.Add($scope.Operand1, $scope.Operand2);
+                if (arg == "sub")
+                    $scope.result = MathsService.Sub($scope.Operand1, $scope.Operand2);
+                if (arg == "mul")
+                    $scope.result = MathsService.Mul($scope.Operand1, $scope.Operand2);
+                if (arg == "div")
+                    $scope.result = MathsService.Div($scope.Operand1, $scope.Operand2);
+
+            }
+
+
+        });
+
+
+
+    </script>
+
+    <!--<div ng-controller="MyController">
+        <h1>{{Message}}</h1>
+        <h1>{{GetMessageFunction()}}</h1>
+    </div>-->
+    <!--<div ng-controller="CalculatorController">
+        <h3>Operand1 is: {{Operand1}} <input  type="text" ng-model="Operand1" ng-change="Calculate()"/></h3>
+        <h3>Operand2 is: {{Operand2}} <input type="text" ng-model="Operand2" ng-change="Calculate()" /></h3>
+        <h3>Operator is: {{Operator}} <input type="text" ng-model="Operator" ng-change="Calculate()" /></h3>
+        <h3>Result is: {{Result}}</h3>
+
+        <button ng-click="ShowResult()">Show Result</button>
+    </div>-->
+    <!--<div ng-controller="NamesController">
+        <ul>
+            <li ng-repeat="name in Names">
+                {{$index+1}}: {{name}} Even: {{$even}}, Odd: {{$odd}}, First Row?  {{$first}}, Last Row?  {{$last}}, Middle Row? {{$middle}}
+            </li>
+        </ul>
+
+        <table border="1">
+            <tr ng-repeat="name in Names">
+                <td>{{name}}</td>
+            </tr>
+        </table>
+
+        <select>
+            <option ng-repeat="name in Names">
+                {{name}}
+            </option>
+        </select>
+    </div>-->
+    <!--<div ng-controller="CountriesCitiesController">
+        <p>
+            Select a country:
+            <select ng-model="selectedcountry" ng-change="PopulateCities()">
+                <option ng-repeat="c in Countries">
+                    {{c}}
+                </option>
+            </select>
+        </p>
+        <p>
+            Select a city:
+            <select>
+                <option ng-repeat="c in Cities">
+                    {{c}}
+                </option>
+            </select>
+        </p>
+    </div>-->
+    <!--<div ng-controller="EmpController">
+        <p>
+            Select an employee id to get the emp details:
+            <select ng-options="e.empid for e in Employees" ng-model="selectedemployee">
+
+            </select>
+        </p>
+        <h3>Selected employee's name is: {{selectedemployee.empname}}, Age is: {{selectedemployee.age}}</h3>
+
+        <input type="checkbox" ng-model="ShowPhoto" />Show Employee's Photo
+        <h3 ng-show="ShowPhoto==true">{{selectedemployee.photo}}</h3>
+    </div>-->
+
+
+    <div ng-controller="BooksController">
+        <table align="center" border="1" width="75%">
+            <thead>
+                <tr>
+                    <th>Book Id</th>
+                    <th>Book Name</th>
+                    <th>Publisher</th>
+                    <th>Price</th>
+                </tr>
+                <tr ng-repeat="b in Books|filter:{Publisher:PublisherName}|orderBy:Order">
+                    <td align="center">{{b.bookid}}</td>
+                    <td align="center">{{b.bookname}}</td>
+                    <td align="center">{{b.Publisher | uppercase}}</td>
+                    <!--<td align="center">{{b.Price| number:2 | MyCustomFilter:discount}}</td>-->
+                    <td align="center">{{b.Price| number:2}}</td>
+                </tr>
+            </thead>
+        </table>
+
+        <p>
+            Enter number of records to be shown from top:
+            <input type="text" ng-model="count" />
+        </p>
+
+
+        <button ng-click="FilterBy('APress')">Filter By Apress</button>
+        <button ng-click="FilterBy('Tata MacGraw Hill')">Filter By Tata MacGrawHill</button>
+        <button ng-click="FilterBy('')">CANCEL EXISTING FILTER</button>
+
+        <p>
+            Enter start price: <input type="text" ng-model="StartPrice" />
+        </p>
+
+        <p>
+            Enter ending price: <input type="text" ng-model="EndPrice" />
+        </p>
+
+        <p>
+            Enter discount: <input type="text" ng-model="discount" />
+        </p>
+
+        <h3>Filtering by...{{PublisherName}}</h3>
+
+
+        <!--========================================================================================================================================-->
+        <!--TODO 1:-->
+        <!--a. Add a dropdown list which displays all the publisher names-->
+        <!--b. When a publisher name is selected from the dropdown list, filter the list to show only  records matching the selected publisher name.-->
+        <!--c. The dropdown must contain a value 'SELECT'. If this value is selected, the entire list must be displayed.-->
+        <!--TODO 2:-->
+        <!--a. Create 3 radio buttons titled, 'BookName', 'Price', 'BookId'.-->
+        <!--b. When a radio button is selected, the list must be sorted by the appropriate column in ASCENDING order.-->
+        <!--========================================================================================================================================-->
+
+
+        <p>
+            Filter By: 
+            <!--<select ng-options="b.Publisher for b in Books" ng-model="publisherSelected" ng-click="FilterBy(publisherSelected.Publisher)">
+
+                <option value="">SELECT</option>
+
+            </select>-->
+
+            <select ng-options="b for b in PubNames" ng-model="publisherSelected" ng-click="FilterBy(publisherSelected)">
+
+                <option value="">SELECT</option>
+
+            </select>
+
+
+            
+            
+        </p>
+
+        <p>
+            Sort By:
+            <input type="radio" name="rad" value="BookID"checked ng-click="OrderBy('bookid')"  />BookId
+            <input type="radio" name="rad" value="BookName" ng-click="OrderBy('bookname')">BookName
+            <input type="radio" name="rad" value="Price" ng-click="OrderBy('Price')" />Price
+            
+        </p>
+
+
+
+        <h4>Today is: {{CurrentDate | date:'dd/MM/yyyy'}}</h4>
+        <h4>Today is: {{CurrentDate | date:'EEE/MMM/dd/yyyy, HH:mm:ss'}}</h4>
+    </div>
+
+    <p>Custom Directive</p>
+
+    <div ng-controller="UsersController">
+        <!--<my-custom-directive>
+        </my-custom-directive>-->
+       <!-- <userinfo></userinfo>-->
+        <!--component directive-->
+        <userinfo user="User1">Text will be overriden by the template userinfo</userinfo> 
+        <userinfo user="User2"></userinfo>
+        <!--decorative directive-->
+        <p highlight align="center">This is a paragraph</p>
+        <br/>
+        <button class="btn btn-info" ng-click="toggleShow()">{{ButtonText}}</button>
+        
+
+    </div>
+    
+    <p>------Services----</p>
+    <div ng-controller="Controller1">
+        <button ng-click="LogMessage()">Log Message to Console Controller1</button>
+    </div>
+    <div ng-controller="Controller2">
+        <button ng-click="LogMessage()">Log Message to Console Controller2</button>
+    </div>
+
+
+    <p>TODO Service Assignment</p>
+    <div ng-controller="Calculate">
+        Enter Operand1:<input type="number" ng-model="Operand1" /><br/>
+        Enter Operand2:<input type="number" ng-model="Operand2" /><br/>
+        Result : <input type="number" ng-model="result" />
+        <button ng-click="Calculation('add')">Add</button>
+        <button ng-click="Calculation('sub')">Subtract</button>
+        <button ng-click="Calculation('mul')">Multiply</button>
+        <button ng-click="Calculation('div')">Divide</button>
+
+    </div>
+
+
+    <p>TODO Decorator attribute</p>
+    
+    <h3 reverse>Welcome</h3>
+
+
+    <p>TODO datetime custom directive</p>
+    <datetime></datetime>
+</body>
+</html>
+
