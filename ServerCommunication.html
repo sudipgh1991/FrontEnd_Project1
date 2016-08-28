@@ -1,0 +1,189 @@
+﻿<!DOCTYPE html>
+<html ng-app="MyModule">
+<head>
+    <title></title>
+   
+    <script src="../scripts/angular.js"></script>
+    <link href="../bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <script src="../scripts/jquery-1.8.3.min.js"></script>
+    <script src="../bootstrap/js/bootstrap.js"></script>
+</head>
+<body>
+    <script>
+        var module = angular.module("MyModule", []);
+        //inject the in-built $http service into the controller to make calls to remote wweb sevice
+        module.controller("TerritoriesController", function ($scope, $http) {
+            $scope.AllTerritories = [];
+            $scope.SelectAllTerritories = function () {
+                //make a HTTP GET request using $http.get() method
+              
+                //internally an AJAX request
+                var promise = $http.get("http://jsonplaceholder.typicode.com/todos");
+
+                //attach callbacks to the returned promise object to collect the result
+                promise.success(function (data) { //when the response is received successfully
+                    console.log("Response received successfully");
+                    //console.log("Total Territories received " + data.length);
+                    //console.log(data[0].TerritoryDescription);
+                    $scope.AllTerritories = data;
+                });
+
+                promise.error(function () { //when some error occurs in receiving the response
+
+                    console.log("There is some error");
+                });
+
+                
+
+
+            };
+
+
+            //Get TODO by ID
+            $scope.todoid = "";
+            $scope.TODO = "";
+            $scope.ErrorMessage = "";
+            $scope.GetTODOByID = function () {
+
+                var promise = $http.get("http://jsonplaceholder.typicode.com/todos/" + $scope.todoid);
+                console.log($scope.todoid);
+                promise.success(function (data) {
+                    $scope.TODO = data;
+                    $scope.ErrorMessage = "";
+                });
+
+                promise.error(function (xhr, data) {
+
+                    //alert("Error in receiving response");
+                    //$scope.TODO=data.Message
+                    $scope.ErrorMessage = "TODO not found";
+                    $scope.TODO = "";
+
+                });
+            };
+
+
+
+
+
+            //POST request
+
+
+            $scope.NewTerritory = {};
+            $scope.AddTODO = function () {
+
+                var promise = $http.post("http://jsonplaceholder.typicode.com/todos", JSON.stringify($scope.NewTerritory));
+                promise.success(function (data) {
+                    console.log(data);
+                    alert(data);
+                });
+                promise.error(function () {
+
+                    $scope.ErrorMessage = "Error while inserting data";
+                });
+            };
+
+
+            //DELETE
+            //$http.get("http://jsonplaceholder.typicode.com/todos/" + $scope.todoid);
+
+            //PUT
+            //$http.post("http://jsonplaceholder.typicode.com/todos/" + $scope.todoid, JSON.stringify($scope.NewTerritory));
+
+          
+
+        });
+    </script>
+
+    <div class="container" ng-controller="TerritoriesController">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h4>Using $http to make REST service calls</h4>
+            </div>
+
+            <div class="container-fluid">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4>Get Results</h4>
+                    </div>
+
+                    <div class="panel-body">
+                        <button class="btn btn-primary" ng-click="SelectAllTerritories()">SELECT ALL TERRITORIES</button>
+                        <br/>
+                        <br />
+                        <p>
+                            Enter TODO id:
+                            <input type="text" ng-model="todoid" ng-change="GetTODOByID()" />
+                        </p>
+                        <span>
+                            {{TODO.userId}}
+                            {{TODO.id}}
+                            {{TODO.title}}
+                        </span>
+                        <span>
+                            {{ErrorMessage}}
+                        </span>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>USERID</th>
+                                    <th>ID</th>
+                                    <th>TITLE</th>
+                                    <th>COMPLETED</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="t in AllTerritories ">
+                                    <td>{{t.userId}}</td>
+                                    <td>{{t.id}}</td>
+                                    <td>{{t.title}}</td>
+                                    <td>{{t.completed}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4>POST Request</h4>
+                        </div>
+                        <div class="panel-body">
+                            <p>
+                                Enter TODO Userid:
+                                <input type="text" ng-model="NewTerritory.userId" />
+                            </p>
+                            <p>
+                                Enter TODO id:
+                                <input type="text" ng-model="NewTerritory.id" />
+                            </p>
+                            <p>
+                                Enter TODO title:
+                                <input type="text" ng-model="NewTerritory.title" />
+                            </p>
+                            <p>
+                                Enter TODO completed:
+                                <input type="text" ng-model="NewTerritory.completed" />
+                            </p>
+                            <p>
+                               <button class="btn btn-default" ng-click="AddTODO()">ADD TODO</button>
+                            </p>
+                            <span>
+                                {{ErrorMessage}}
+                            </span>
+                        </div>
+                        </div>
+
+              
+
+                    </div>
+            </div>
+
+
+
+        </div>
+
+    </div>
+    
+
+</body>
+</html>
